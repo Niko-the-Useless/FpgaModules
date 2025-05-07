@@ -1,9 +1,9 @@
 module uart_rx 
-#(parameter CLK_PER_BIT=833) //19200 baud rate
+#(parameter CLK_PER_BIT)
 (
 	input		clk,
 	input 		i_rx,
-	output reg[7:0] o_data
+	output [7:0] o_data
 	);
 	
 	reg				r_r_data;//incoming data
@@ -60,7 +60,6 @@ module uart_rx
                     r_clk_count<=0;
                     if (r_r==1) begin
                         r_state<=s_idle;
-                        o_data<=r_data;
                     end
                 end else begin
                     r_clk_count<=r_clk_count+1;
@@ -69,4 +68,5 @@ module uart_rx
             end
         endcase
 	end
+  assign o_data =r_data;
 endmodule
