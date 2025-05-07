@@ -13,10 +13,10 @@ module uart_rx
 	reg		[2:0]	r_bit_index;
 	reg		[1:0]	r_state;
 	
-	parameter		s_idle=2'b00;
-	parameter		s_start=2'b01;
-	parameter	 	s_receive=2'b10;
-  parameter		s_stop=2'b11;
+	localparam		s_idle=2'b00;
+	localparam		s_start=2'b01;
+	localparam	 	s_receive=2'b10;
+  localparam		s_stop=2'b11;
 	
 	always @(posedge clk) begin //fix metastability issues
 		r_r_data<=i_rx;

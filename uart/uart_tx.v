@@ -15,10 +15,10 @@ module uart_tx
 	reg	[7:0]	r_clk_count;
 	reg				r_done;
 	reg				r_busy;
-	parameter	s_idle	=2'b00; // wait for i_start_tx
-	parameter	s_start	=2'b01; //	send start bit 
-	parameter	s_trans	=2'b11; // send data
-	parameter	s_end		=2'b10; //send end bit
+	localparam	s_idle	=2'b00; // wait for i_start_tx
+	localparam	s_start	=2'b01; //	send start bit 
+	localparam	s_trans	=2'b11; // send data
+	localparam	s_end		=2'b10; //send end bit
 
 	always @(posedge clk)
 	begin
@@ -50,23 +50,29 @@ module uart_tx
 							end else begin
 									r_clk_count	<=0;
 									r_state			<=s_trans;
+									r_clk_count	<=0;
 								end
 					end
 					s_trans:
 						begin
+							r_done	<=1'b0;
+							r_busy	<=1'b1;
 							o_tx	<=r_data[r_bit_index];
 							if (r_clk_count<CLK_PER_BIT-1)
 								begin
 									r_clk_count	<=r_clk_count+1;
 									r_state			<=s_trans;
-								end else r_clk_count	<=0;
-							if (r_clk_count<7)
-								begin
-									r_bit_index	<=r_bit_index+1;
-									r_state			<=s_trans;
 								end else begin
-									r_bit_index	<=0;
-									r_state			<=s_end;
+									r_clk_count	<=0;
+									if (r_bit_index<7)
+										begin
+											r_bit_index	<=r_bit_index+1;
+											r_state			<=s_trans;
+										end else begin
+											r_bit_index	<=0;
+											r_state			<=s_end;
+											r_clk_count	<=0;
+										end
 								end
 						end
 					s_end:
@@ -80,6 +86,7 @@ module uart_tx
 									r_done	<=1;
 									r_busy	<=0;
 									r_state	<=s_idle;
+									r_clk_count	<=0;
 								end
 						end
 					default: r_state	<=s_idle;
