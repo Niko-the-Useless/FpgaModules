@@ -4,9 +4,7 @@ module uart_rx
 	input clk,
 	input i_rx,
 	output [7:0] o_data,
-	output o_done,
-	output [1:0] o_state,
-	output [7:0] o_clk_count
+	output o_done
 	);
 	reg r_incoming;
 	reg r_rx;
@@ -57,7 +55,7 @@ module uart_rx
 				end
 			s_recieve:
 				begin
-					if (r_clk_count==(CLK_PER_BIT-1)/2)
+					if (r_clk_count==(CLK_PER_BIT-1))
 						begin
 							r_data[r_bit_index] <= r_rx;
 							r_clk_count <= 0;
@@ -70,7 +68,7 @@ module uart_rx
 				end 
 			s_stop:
 				begin
-					if (r_clk_count==(CLK_PER_BIT-1)/2)
+					if (r_clk_count==(CLK_PER_BIT-1))
 						begin
 							r_clk_count <= 0;
 							if (r_rx == 1)
@@ -89,6 +87,4 @@ module uart_rx
 	//ouputs
 	assign o_done = r_done;
 	assign o_data = r_data;
-	assign o_state = r_state;
-	assign o_clk_count = r_clk_count;
 endmodule

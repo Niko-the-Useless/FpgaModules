@@ -8,11 +8,9 @@ module uart_tb ();
 	reg [7:0] i_data=0;
 	wire o_tx;
 	wire o_tx_done;
-	wire o_busy;
+	wire o_tx_busy;
 	wire o_rx_done;
 	wire [7:0] o_rx_data;
-	wire [1:0] o_rx_state;
-	wire [7:0] o_rx_clk_count;
 
 	always #50 clk = ~clk;
 
@@ -22,7 +20,7 @@ module uart_tb ();
 			.i_start_tx(i_start_tx),
 			.i_data(i_data),
 			.o_done(o_tx_done),
-			.o_busy(o_busy),
+			.o_busy(o_tx_busy),
 			.o_tx(o_tx)
 		);
 
@@ -31,9 +29,7 @@ module uart_tb ();
 			.clk(clk),
 			.i_rx(o_tx),
 			.o_data(o_rx_data),
-			.o_done(o_rx_done),
-			.o_state(o_rx_state),
-			.o_clk_count(o_rx_clk_count)
+			.o_done(o_rx_done)
 		);
 
 		initial begin
