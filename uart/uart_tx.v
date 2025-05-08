@@ -6,8 +6,7 @@ module uart_tx
 	input  [7:0] i_data, // data to be transmitted
 	output o_busy, // busy flag
 	output o_done, // done flag
-	output	reg o_tx,// bits to be transmitted
-	output [1:0] o_state
+	output	reg o_tx// bits to be transmitted
 	);
 	reg	[7:0]	r_data;
 	reg	[1:0] r_state;
@@ -94,5 +93,4 @@ module uart_tx
 	end
 		assign o_done	=r_done;
 		assign o_busy	=r_busy;
-		assign o_state=r_state;
 	endmodule
