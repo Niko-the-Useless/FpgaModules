@@ -1,10 +1,10 @@
-module top
+module counter
 (
 	input clk,
 	output [5:0] led
 );
 
-localparam WAIT_TIME=13500000;
+localparam WAIT_TIME=2250000;
 reg [5:0] ledCounter=0;
 reg [23:0] clockCounter=0;
 

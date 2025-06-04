@@ -1,0 +1,56 @@
+$date
+	Tue Feb 11 15:26:49 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb_greaterThan $end
+$var wire 1 ! o_ab $end
+$var reg 4 " i_a [3:0] $end
+$var reg 4 # i_b [3:0] $end
+$scope module dut $end
+$var wire 4 $ i_a [3:0] $end
+$var wire 4 % i_b [3:0] $end
+$var wire 1 ! o_ab $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b0 %
+b0 $
+b0 #
+b0 "
+0!
+$end
+#10000
+b111 #
+b111 %
+1!
+b1000 "
+b1000 $
+#20000
+b100 #
+b100 %
+0!
+b10 "
+b10 $
+#30000
+b1110 #
+b1110 %
+1!
+b1111 "
+b1111 $
+#40000
+b10 #
+b10 %
+0!
+b1 "
+b1 $
+#50000
